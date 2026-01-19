@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-# import csv
+import csv
 
 url = "https://news.ycombinator.com/"
 response = requests.get(url)
@@ -15,10 +15,14 @@ soup = BeautifulSoup(response.text, 'html.parser')
 
 
 things = soup.find_all(class_= "titleline",limit = 5)
+filename = 'Results.csv'
 
+with open(filename,'w') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(["Rank","Headline"])
+            for i, thing in enumerate(things, start=1):
+                    print(f"Rank {i}.{thing.text}")
+                    csvwriter.writerow([i,thing.text])
 
-with open('text.txt','w') as file:
-    for i, thing in enumerate(things, start=1):
-            print(f"Rank {i}.{thing.text}")
-            file.writelines(f"Rank {i}.{thing.text}\n")
+            # file.writelines(f"Rank {i}.{thing.text}\n")
             
