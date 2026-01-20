@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import time
 
 url = "https://news.ycombinator.com/"
 response = requests.get(url)
@@ -17,14 +18,20 @@ soup = BeautifulSoup(response.text, 'html.parser')
 things = soup.find_all(class_= "titleline",limit = 5)
 filename = 'Results.csv'
 
-with open(filename,'w') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(["Rank","Headline","Link"])
-            for i, thing in enumerate(things, start=1):
-                    new_part = thing.text.rsplit(' (',1)
-                    headline = new_part[0]
-                    print(f"Rank {i}.{thing.text}")
-                    csvwriter.writerow([i,headline,thing.find('a')['href']])
+print("bot awakened")
+while True:
+        with open(filename,'a') as csvfile:
+                csvwriter = csv.writer(csvfile)
+                csvwriter.writerow(["Rank","Headline","Link"])
 
+                for i, thing in enumerate(things, start=1):
+                        new_part = thing.text.rsplit(' (',1)
+                        headline = new_part[0]
+                        print(f"Rank {i}.{thing.text}")
+                        csvwriter.writerow([i,headline,thing.find('a')['href']])
+                print("successful scrape")
+                waiting_time = 10
+                print(f"waiting {waiting_time} seconds.")
+                time.sleep(waiting_time)
             # file.writelines(f"Rank {i}.{thing.text}\n")
             
