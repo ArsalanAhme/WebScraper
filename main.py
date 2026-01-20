@@ -19,10 +19,12 @@ filename = 'Results.csv'
 
 with open(filename,'w') as csvfile:
             csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(["Rank","Headline"])
+            csvwriter.writerow(["Rank","Headline","Link"])
             for i, thing in enumerate(things, start=1):
+                    new_part = thing.text.rsplit(' (',1)
+                    headline = new_part[0]
                     print(f"Rank {i}.{thing.text}")
-                    csvwriter.writerow([i,thing.text])
+                    csvwriter.writerow([i,headline,thing.find('a')['href']])
 
             # file.writelines(f"Rank {i}.{thing.text}\n")
             
