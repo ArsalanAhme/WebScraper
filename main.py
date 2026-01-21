@@ -9,9 +9,16 @@ if not os.path.exists(filename):
         with open(filename,'w') as file:
                 csvwriter = csv.writer(file)
                 csvwriter.writerow(["Rank","Headline","Link"])   
-else:
+elif os.path.exists(filename):
+        with open(filename,'r') as file:
+                reader = csv.reader(file)
+                next(reader,None)
+                for row in reader:
+                        if len(row) > 2:
+                                seen_urls.add(row[2])
         print("file already exists, skipping header")
-        
+        print(f"Memory loaded. I already know {len(seen_urls)} articles.")
+
 while True:
         try:
                 response = requests.get(url)
