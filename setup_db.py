@@ -1,5 +1,6 @@
 import sqlite3
 
+#method to initialise table if it does not exist at runtime
 def create_database():
     connection = sqlite3.connect("news.db")
     cursor = connection.cursor()
@@ -22,13 +23,13 @@ def create_database():
 create_database()
 
 
+# test method to see if table was configured correctly
+# def add_values():
+#     connection = sqlite3.connect("news.db")
+#     cursor = connection.cursor()
 
-def add_values():
-    connection = sqlite3.connect("news.db")
-    cursor = connection.cursor()
+#     cursor.execute("""INSERT INTO stories (headline,link,rank) VALUES(?,?,?) """,["test","test.co.uk",1])
+#     connection.commit()
+#     connection.close()
 
-    cursor.execute("""INSERT INTO stories (headline,link,rank) VALUES(?,?,?) """,["test","test.co.uk",1])
-    connection.commit()
-    connection.close()
-
-add_values()
+# add_values()
