@@ -33,7 +33,7 @@ print(interesting_words.value_counts().head(5))
 top_words = interesting_words.value_counts().head(10)
 plt.figure(figsize=(10,6))
 
-top_words.plot(kind='bar',color ='red')
+top_words.plot(kind='bar',color ='green')
 
 
 
