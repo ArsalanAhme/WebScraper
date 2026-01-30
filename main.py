@@ -1,5 +1,6 @@
 import time,requests,os,sqlite3
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 url = "https://news.ycombinator.com/"
 
@@ -19,8 +20,9 @@ while True:
                         article_url = thing.find('a')['href']
                         new_part = thing.text.rsplit(' (',1)
                         headline = new_part[0]
+                        current_time = datetime.now()
                         try:
-                                cursor.execute("""INSERT INTO stories (headline,link,rank) VALUES(?,?,?)""",(headline,article_url,i))
+                                cursor.execute("""INSERT INTO stories (headline,link,rank,scraped_at) VALUES(?,?,?,?)""",(headline,article_url,i,current_time))
                                 print(f"New: Rank {i} - Headline {headline}")
                                 new_articles+=1
                         except sqlite3.IntegrityError:

@@ -11,7 +11,8 @@ def create_database():
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     headline VARCHAR(150) NOT NULL, 
     link VARCHAR(150) NOT NULL UNIQUE,
-    rank INTEGER
+    rank INTEGER,
+    scraped_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
     """
 
