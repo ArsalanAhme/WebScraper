@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+import matplotlib.pyplot as plt
 
 connection = sqlite3.connect("news.db")
 df = pd.read_sql_query("SELECT * FROM stories",connection)
@@ -27,3 +28,20 @@ interesting_words = all_words[~all_words.isin(stop_words)]
 
 
 print(interesting_words.value_counts().head(5))
+
+
+top_words = interesting_words.value_counts().head(10)
+plt.figure(figsize=(10,6))
+
+top_words.plot(kind='bar',color ='red')
+
+
+
+plt.title('Top Keywords on Hacker News')
+plt.xlabel('Keyword')
+plt.ylabel('Frequency')
+plt.xticks(rotation=45)
+
+
+print("creating graph")
+plt.show()
